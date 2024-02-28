@@ -1,0 +1,18 @@
+.responsive-bg{
+    height: 68vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+   
+    animation-name: animate;
+    animation-duration:12s ;
+    animation-iteration-count:infinite ;
+    animation-timing-function: step-start;
+  }
+
+  @keyframes animate {
+    30%{background-image: url(../MyImages/slide1.jpg);}
+    60%{ background-image: url(../MyImages/slide2.jpg);}
+    100%{ background-image: url(../MyImages/slide3.jpg);  } 
+  }
+
