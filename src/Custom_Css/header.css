@@ -21,8 +21,8 @@
     font-weight: 600;
 }
 
-li{
-    margin-left: 10px;
+.navbarul li .nav-link{
+    padding-left: 10px;
 }
 
 .headerUl li{

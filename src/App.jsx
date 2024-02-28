@@ -13,6 +13,8 @@ import MusicDance from "./components/MusicDance"
 import Sports from "./components/Sports"
 import Gallery from "./components/Gallery"
 import Contact from "./components/Contact"
+import Academic from "./components/Academic"
+import LoginForm from "./components/LoginForm"
 
 function App() {
   
@@ -22,6 +24,7 @@ function App() {
     <HashRouter>
       <HeaderSection/>
       <Navbar/>
+      
         <Routes >
             <Route path="/" element={<Home/>}/>
             <Route path="/about" element={<About/>}/>
@@ -34,6 +37,8 @@ function App() {
             <Route path="/sports" element={<Sports/>}/>
             <Route path="/gallery" element={<Gallery/>}/>
             <Route path="/contact" element={<Contact/>}/>
+            <Route path="/academic" element={<Academic/>}/>
+            <Route path="/login" element={<LoginForm/>}/>
         </Routes>
       <Footer/>
     </HashRouter>

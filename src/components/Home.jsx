@@ -28,7 +28,13 @@ const Home=()=> {
              <div className="container text-center my-5">
                 <h2>Mount Carmel Residential School</h2>
                 <p>Tmply dummy text of the printing and typesetting industry. Lorem Ipsum has been theindustry's standard dummy text ever since the 1500s, when an unknown printer took.</p>
-                <img src={group} alt="" />
+                <div className="container row d-flex justify-content-center">
+                                           
+                     <div className="col-lg-8  " >
+                         <img src={group} className="w-100  " />
+                      </div>
+                    
+                </div>
              </div>
 
                                 {/* section ----- 2 */} 

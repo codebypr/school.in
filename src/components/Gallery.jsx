@@ -20,17 +20,18 @@ function Gallery() {
             description:'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum ipsam maxime velit architecto sapiente consequatur'
         },
         {
-            src:'https://lh3.googleusercontent.com/proxy/cXyXbQL7xTpOr4EUT_2oQt61RECJvkfj-U6p7QI4m_0C8JVN_N1stWieXDxfnl4SiR5lWZJKmA75GDyh6nWZKOtoAtECqOsHYhY-5Fs4ymtxKwyEyB7ulN-Y7XGWzckZrwTlv8z5UXrFvfCyGHk',
+            src:'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
+            title:'Slide Title one',
+            description:'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum ipsam maxime velit architecto sapiente consequatur'
+        },
+        
+        {
+            src:'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
             title:'Slide Title one',
             description:'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum ipsam maxime velit architecto sapiente consequatur'
         },
         {
             src:'https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg',
-            title:'Slide Title one',
-            description:'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum ipsam maxime velit architecto sapiente consequatur'
-        },
-        {
-            src:'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
             title:'Slide Title one',
             description:'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum ipsam maxime velit architecto sapiente consequatur'
         },
@@ -50,7 +51,7 @@ function Gallery() {
 
 <div className="container mb-5">
                 <div className="container text-center ">
-                    <h1 className='mb-5'>Gallery</h1>
+                    <h2 className='mb-5'>Gallery</h2>
                     <div className="row ">
                         {
                             slides.map((image,i)=>(
@@ -58,6 +59,7 @@ function Gallery() {
                                 onClick={()=>handleClick(i)}  key={i}
                                 >
                                     <img src={image.src} className="w-100 h-100 " />
+                                    
                                 </div>
                             ))
                         }
