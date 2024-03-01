@@ -2,10 +2,12 @@ import React from 'react'
 import principle from '../MyImages/principle.jpg'
 import { BiDoorOpen , BiBuilding , BiArch ,BiBulb} from "react-icons/bi";
 import Card from './Card';
+import BreadGrumb from './BreadGrumb';
 
 function About() {
   return (
     <>
+                <BreadGrumb pic={'https://www.cystronpharma.com/img/ab.jpg'} />
             <div className="container card mb-5 pt-5 border border-0" >
                 <div className="row g-0">
                     

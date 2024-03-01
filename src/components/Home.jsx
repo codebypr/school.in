@@ -1,4 +1,4 @@
-import '../Custom_Css/style.css';
+
 
 import news1 from '../MyImages/news1.jpg';
 import news2 from '../MyImages/news2.jpeg';
@@ -25,12 +25,12 @@ const Home=()=> {
 
                                 {/* section ----- 1 */} 
 
-             <div className="container text-center my-5">
+             <div className="container-fluid  text-center my-5">
                 <h2>Mount Carmel Residential School</h2>
                 <p>Tmply dummy text of the printing and typesetting industry. Lorem Ipsum has been theindustry's standard dummy text ever since the 1500s, when an unknown printer took.</p>
-                <div className="container row d-flex justify-content-center">
+                <div className=" row d-flex justify-content-center">
                                            
-                     <div className="col-lg-8  " >
+                     <div className="col-lg-6  " >
                          <img src={group} className="w-100  " />
                       </div>
                     
@@ -40,7 +40,7 @@ const Home=()=> {
                                 {/* section ----- 2 */} 
 
 
-            <div className="container card my-5 border border-0" >
+            <div className="container-fluid card my-5 border border-0" >
                 <div className="text-center mb-5">
                 <h2>ABOUT US</h2>
                 <p>Fusce sem dolor, interdum in fficitur at, faucibus nec lorem. Sed nec molestie justo</p>
@@ -69,30 +69,30 @@ const Home=()=> {
                     <h2>Why Choose This School</h2>
                     <p>Educating Since 1991</p>
                 </div>
-                <div className="container pt-3">
+                <div className="container-fluid pt-3">
                     <div className=" row">
-                        <div className="col-lg-3">
+                        <div className="col-lg-3 mb-3">
                     <Card para={`Discover our school's exceptional, globally recognized infrastructure, fostering unparalleled educational experiences that inspire growth, curiosity, and success in every student.`} 
                     title={`World-Class Infra`} 
                     img={<BiArch className='w-100' style={{ fontSize: '100px', color: '#0275d8' }} />}
                     text={`text-center`}/>
                     
                     </div>
-                    <div className="col-lg-3">
+                    <div className="col-lg-3 mb-3">
                     <Card para={`Ranking No.1, our school's unmatched excellence shines through outstanding academic achievements and accolades, showcasing our commitment to unparalleled educational standards and holistic development.`} 
                     title={`TOP Ranking`} 
                     img={<BiBuilding className='w-100' style={{ fontSize: '100px', color: '#0275d8' }} />}
                     text={`text-center`}/>
                     
                     </div>
-                    <div className="col-lg-3">
+                    <div className="col-lg-3 mb-3">
                     <Card para={`Nurturing and empowering students to become visionary leaders equipped with skills, knowledge, and values that inspire positive change in their communities and beyond.`} 
                     title={`Making Leaders`} 
                     img={<BiDoorOpen className='w-100' style={{ fontSize: '100px', color: '#0275d8' }} />}
                     text={`text-center`}/>
                     
                     </div>
-                    <div className="col-lg-3">
+                    <div className="col-lg-3 mb-3">
                     <Card para={`Our comprehensive facilities, encompassing state-of-the-art language and science laboratories enhance students' practical learning experiences, fostering curiosity and academic excellence.`} 
                     title={`Hands-on Learning`} 
                     img={<BiBulb className='w-100' style={{ fontSize: '100px', color: '#0275d8' }} />}
@@ -110,14 +110,14 @@ const Home=()=> {
                     <p>OUR EKIT SCHOOL COURSES</p>
                     <h2>News Events</h2>
                 </div>
-                <div className="container pt-3">
+                <div className="container-fluid pt-3">
                     <div className="row">
                         <div className="col-lg-4 mb-3">
                       
                     <div className="card border border-0 rounded-0  shadow-lg  ">
                                 <img src={news1} className="card-img-top rounded-0" alt="..." />
                                 <div className="card-body">
-                                    <h4 className="card-title mt-3 mb-4">Your Complete Guide to Photography</h4>
+                                    <h4 className="card-title mt-3 mb-4">Complete Guide Photography</h4>
                                     <p className="card-text">A small river named Duden flows by their place and supplies it with the necessary</p>
                                     <a href="#" className="btn btn-warning rounded-0 mt-3">Read more</a>
                                 </div>
@@ -127,7 +127,7 @@ const Home=()=> {
                             <div className="card border border-0 rounded-0  shadow-lg  ">
                                 <img src={news2} className="card-img-top rounded-0" alt="..." />
                                 <div className="card-body">
-                                    <h4 className="card-title mt-3 mb-4">Learn Python – Interactive Python</h4>
+                                    <h4 className="card-title mt-3 mb-4">Interactive Python</h4>
                                     <p className="card-text">A small river named Duden flows by their place and supplies it with the necessary</p>
                                     <a href="#" className="btn btn-warning rounded-0 mt-3">Read more</a>
                                 </div>
@@ -137,7 +137,7 @@ const Home=()=> {
                             <div className="card border border-0 rounded-0  shadow-lg  ">
                                 <img src={news3} className="card-img-top rounded-0" alt="..." />
                                 <div className="card-body">
-                                    <h4 className="card-title mt-3 mb-4">Introduction to Edu_Learn LMS Plugin</h4>
+                                    <h4 className="card-title mt-3 mb-4">Introduction to LMS Plugin</h4>
                                     <p className="card-text">A small river named Duden flows by their place and supplies it with the necessary</p>
                                     <a href="#" className="btn btn-warning rounded-0 mt-3">Read more</a>
                                 </div>

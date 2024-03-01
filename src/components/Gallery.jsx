@@ -5,6 +5,9 @@ import {Captions,Fullscreen,Thumbnails }from "yet-another-react-lightbox/plugins
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
+import BreadGrumb from './BreadGrumb';
+
+import galeryBred from '../MyImages/gallerybread.jpg'
 
 function Gallery() {
     const [index, setIndex] = React.useState(-1);
@@ -48,10 +51,9 @@ function Gallery() {
     }
   return (
 <>
-
-<div className="container mb-5">
+                            <BreadGrumb pic={galeryBred} title={'Gallery'} para={'Why gallery descriptions are so Important'}/>
+                <div className="container my-5">
                 <div className="container text-center ">
-                    <h2 className='mb-5'>Gallery</h2>
                     <div className="row ">
                         {
                             slides.map((image,i)=>(

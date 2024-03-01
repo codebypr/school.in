@@ -15,6 +15,8 @@ import Gallery from "./components/Gallery"
 import Contact from "./components/Contact"
 import Academic from "./components/Academic"
 import LoginForm from "./components/LoginForm"
+import MainPannel from "./components/Dashboard/MainPannel"
+import ShowAndHideComponent from "./components/header/ShowAndHideComponent"
 
 function App() {
   
@@ -22,8 +24,10 @@ function App() {
   return (
     <>
     <HashRouter>
+      <ShowAndHideComponent>
       <HeaderSection/>
       <Navbar/>
+      </ShowAndHideComponent>
       
         <Routes >
             <Route path="/" element={<Home/>}/>
@@ -39,8 +43,12 @@ function App() {
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/academic" element={<Academic/>}/>
             <Route path="/login" element={<LoginForm/>}/>
+            <Route path="/dashboard" element={<MainPannel/>}/>
         </Routes>
-      <Footer/>
+
+        <ShowAndHideComponent>
+          <Footer/>
+        </ShowAndHideComponent>
     </HashRouter>
       
     </>

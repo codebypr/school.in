@@ -1,7 +1,7 @@
 const Card = (props) => {
     return (
         <>
-            <div className="card  border border-0 shadow-lg h-100">
+            <div className="card py-5  border border-0 shadow-lg h-100">
                 {props.img}
                 <div className={`card-body ${props.bg} ${props.text}`}>
                     <h5 className="card-title">{props.title}</h5>

@@ -1,4 +1,6 @@
 import React from 'react'
+import BreadGrumb from './BreadGrumb'
+import admissionBread from '../MyImages/admissionbread.jpg'
 
 function OnlineAdmission() {
 
@@ -7,6 +9,7 @@ function OnlineAdmission() {
     }
     return (
         <>
+            <BreadGrumb pic={admissionBread}/> 
             <div className="container my-5 ">
                 <form onSubmit={handleSubmit}>
                     <div className='border w-100 bg-secondary-subtle p-2 px-4' ><b>Basic Details</b></div>

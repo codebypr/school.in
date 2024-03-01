@@ -2,12 +2,14 @@ import React from 'react'
 import acadmic1 from '../MyImages/academic1.jpg'
 import acadmic2 from '../MyImages/academic2.jpg'
 import acadmic3 from '../MyImages/academic3.jpg'
+import acadmicBread from '../MyImages/academicbread.jpg'
+import BreadGrumb from './BreadGrumb'
 
 function Academic() {
   return (
     <>
+        <BreadGrumb pic={acadmicBread} title={'Academic Support'}/>
         <div className="container text-center my-5 pt-2">
-         
         </div>
             <div className="container card mb-3 mt-3 border border-0" >
                 <div className="row g-0">
@@ -48,19 +50,19 @@ function Academic() {
                             <h3 className="card-title">Our Methodology</h3>
                             <p className="card-text">We at Lotus Veda, one of the best play school in Ashok Vihar completely discard the practice of copying answers from the board. Hence, we start working on English from an early age. The students frame and write their own answers in their notebooks/ workbooks and in the worksheets. As a result, the students of this school never face the challenge of cramming information.</p>
 
-                            <a type="button" class="btn btn-light w-100 d-flex align-items-center"
+                            <a type="button" className="btn btn-light w-100 d-flex align-items-center"
                             data-bs-toggle="collapse" href="#second" aria-controls="collapseExample"
                             ><h1> &#10133;</h1> Exposure to new activities</a>
-                            <div class="collapse" id="second">
-                                <div class="card card-body">
+                            <div className="collapse" id="second">
+                                <div className="card card-body">
                                     Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
                                 </div>
                             </div>
-                            <a type="button" class="btn btn-light w-100 d-flex align-items-center"
+                            <a type="button" className="btn btn-light w-100 d-flex align-items-center"
                             data-bs-toggle="collapse" href="#collapseExample" aria-controls="collapseExample"
                             ><h1> &#10133;</h1>  Assessment: An ongoing process</a>
-                            <div class="collapse" id="collapseExample">
-                                <div class="card card-body">
+                            <div className="collapse" id="collapseExample">
+                                <div className="card card-body">
                                     Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
                                 </div>
                             </div>
