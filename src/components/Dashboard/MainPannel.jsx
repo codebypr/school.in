@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import {  FaHome } from "react-icons/fa"
-import { IoMenu } from "react-icons/io5";
+import { IoMenu,IoReceipt ,IoPersonAdd,IoHandRightSharp} from "react-icons/io5";
+import { BiSolidUserDetail } from "react-icons/bi";
+
 import StudentAdmission from './Student/StudentAdmission';
 import StudentDetails from './Student/StudentDetails';
+import StudentAttendance from './Student/StudentAttendance';
 
 
 function MainPannel() {
@@ -32,17 +35,23 @@ function MainPannel() {
             
 <header>
   {/* <!-- Sidebar --> */}
-  <nav id="sidebarMenu" className="collapse d-lg-block sidebar collapse " style={{backgroundColor:'#242426'}}>
+  <nav id="sidebarMenu" className="collapse d-lg-block sidebar collapse " style={{backgroundColor:'#242426',width:'210px'}}>
     <div className="position-sticky">
-      <div className="list-group list-group-flush mt-4 sideBtn">        
+      <div className="list-group list-group-flush mt-4 sideBtn ">        
         <button  className="text-start py-2  w-100" onClick={()=>setToggleBtn(false)}>
           <FaHome className="mx-3 " color='white' size={20}/><span>Main dashboard</span>
         </button>
         <button  className="text-start py-2 w-100" onClick={()=>{setPannel('student admission'); setToggleBtn(false)}}>
-          <FaHome className="mx-3" color='white' size={20}/><span>Student Admission</span>
+          <IoPersonAdd className="mx-3" color='white' size={20}/><span>Student Admission</span>
         </button>
         <button  className="text-start py-2 w-100" onClick={()=>{setPannel('student details'); setToggleBtn(false)}}>
-          <FaHome className="mx-3" color='white' size={20}/><span>Student Details</span>
+          <BiSolidUserDetail className="mx-3" color='white' size={20}/><span>Student Details</span>
+        </button>
+        <button  className="text-start py-2 w-100" onClick={()=>{setPannel('collect fees'); setToggleBtn(false)}}>
+          <IoReceipt className="mx-3" color='white' size={20}/><span>Collect Fees</span>
+        </button>
+        <button  className="text-start py-2 w-100" onClick={()=>{setPannel('attendance'); setToggleBtn(false)}}>
+          <IoHandRightSharp className="mx-3" color='white' size={20}/><span>Student Attendance</span>
         </button>
       </div>
     </div>
@@ -69,12 +78,18 @@ function MainPannel() {
 
 
 {/* <!--Main layout--> */}
-<main style={{marginTop:'58px'}}>
+<main style={{marginTop:'56px'}}>
   {
     pannel=='student admission' && (<StudentAdmission/>)
   }
   {
-    pannel=='student details' && (<StudentDetails/>)
+    pannel=='student details' && (<StudentDetails view={true}/>)
+  }
+  {
+    pannel=='collect fees' && (<StudentDetails fees={true}/>)
+  }
+  {
+    pannel=='attendance' && (<StudentAttendance/>)
   }
 </main>
 
