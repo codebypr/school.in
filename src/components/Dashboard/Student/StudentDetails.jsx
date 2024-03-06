@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux';
 import DataTable from 'react-data-table-component';
 import StudentViewSection from './StudentViewSection';
 import StudentFeesCollect from './StudentFeesCollect';
+import StudentAdmission from './StudentAdmission';
+
 
 
 function StudentDetails({fees,view}) {
@@ -18,6 +20,7 @@ function StudentDetails({fees,view}) {
     const [row,setRow]=useState({});
 
     const [studentData, setStudentData] = useState([])
+    
 
     const columns = [
         {
@@ -26,7 +29,7 @@ function StudentDetails({fees,view}) {
         },
         {
             name: 'Name',
-            selector: row => row.name
+            selector: row => row.firstName
         },
         {
             name: 'Roll No',
@@ -35,7 +38,7 @@ function StudentDetails({fees,view}) {
         },
         {
             name: 'Class',
-            selector: row => row.clas
+            selector: row => row.class
         },
         {
             name: 'City',
@@ -47,7 +50,9 @@ function StudentDetails({fees,view}) {
         },
 view==true ?   {
             name: 'Action',
-            selector: row => <button className='stdEyeBtn' > <FaEye color='black' onClick={()=>viewBtn(row)}/> <CiEdit color='black' className='ms-2' onClick={() =>editStdDetails(row)}/> </button>
+            selector: row => <button className='stdEyeBtn' >
+                 <FaEye color='black' onClick={()=>viewBtn(row)}/> 
+                 <CiEdit color='black' className='ms-2' onClick={() =>editStdDetails(row)}/> </button>
                 }:
 fees==true && {   
             name: 'Action',
@@ -58,17 +63,18 @@ fees==true && {
 
    
     const editStdDetails=(row)=>{
-        alert("Class : "+row.clas)
+        setRow(row);
+        setPannel('edit')
     }
-    const viewBtn=async(row)=>{
-        await setRow(row);
+    const viewBtn=(row)=>{
+        setRow(row);
         setPannel('view')
     }
    
     useEffect(() => {
         setStudentData(studentinfo);
         const result = studentinfo.filter((student) => (
-            student.name.toLowerCase().match(search.toLowerCase())
+            student.firstName.toLowerCase().match(search.toLowerCase())
         ))
         setStudentData(result)
     }, [search])
@@ -98,6 +104,13 @@ fees==true && {
                          <>
                             <button className='shadow px-2 stdEyeBtn' onClick={()=>setPannel('')}>Go Back <TbArrowBackUp size={20}/></button>
                             <StudentViewSection data={row}/>
+                         </>)
+                }
+                {
+                         pannel=='edit' && (
+                         <>
+                            <button className='shadow px-2 stdEyeBtn' onClick={()=>setPannel('')}>Go Back <TbArrowBackUp size={20}/></button>
+                            <StudentAdmission data={row}/>
                          </>)
                 }
 

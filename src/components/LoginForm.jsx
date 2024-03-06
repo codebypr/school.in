@@ -1,16 +1,44 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 function LoginForm() {
   const [email,setEmail]=useState('');
   const [password,setPassword]=useState('');
+  const [values,setValues]=useState([]);
   const [msg,setMsg]=useState();
   const navigate=useNavigate();
 
+
+  useEffect(()=>{
+    axios('http://localhost:3000/')
+   .then((data)=>{setValues(data.data)})
+   .catch((err)=>{console.log("ERR : "+err)})
+   
+})
+
   const loginTeacher= async()=>{
     setMsg('loding...')
-      navigate('/dashboard')
+    // values.map((admin)=>{
+    //   if(admin.Email==email ){
+    //     if(admin.Password==password){
+    //       console.log("done");
+    //       navigate('/dashboard')
+    //     }else{
+    //       setMsg('Invalid Password !')
+    //     }
+       
+    //   }else{
+    //     setMsg('Email not Found !')
+    //   }
+    // })
+    //   setTimeout(()=>{
+    //     setMsg('')
+    //   },2000) 
+    navigate('/dashboard')
   }
+
+ 
   return (
     <>
 
@@ -37,26 +65,26 @@ function LoginForm() {
                         <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Sign into your account</h5>
 
                         <div className="form-outline mb-4">
-                          <input type="email" id="form2Example17" className="form-control form-control-lg"
+                          <label>Email</label>
+                          <input type="email" id="form2Example17" className="form-control form-control-lg" required
                           value={email}
                           onChange={(e)=>setEmail(e.target.value)}
                          
                           />
-                          <label>Email</label>
                         </div>
 
                         <div className="form-outline mb-4">
-                          <input type="password" id="form2Example27" className="form-control orm-control-lg"
+                          <label >Password</label>
+                          <input type="password" id="form2Example27" className="form-control orm-control-lg" required
                           value={password}
                           onChange={(e)=>setPassword(e.target.value)}
-                         
                           />
-                          <label >Password</label>
+                          <span>name is not empty</span><br />
                         </div>
 
                         <div className="pt-1 mb-4 d-flex justify-content-between">
                         <button type="submit" className="btn btn-success btn-lg btn-block">Login here</button>
-                        <h5 className='text-danger'>{msg}</h5>
+                        <p className='text-danger fs-6'>{msg}</p>
                         </div>
 
                         <NavLink className="small text-muted" href="#">Forgot password?</NavLink>

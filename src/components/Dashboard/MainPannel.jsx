@@ -6,11 +6,35 @@ import { BiSolidUserDetail } from "react-icons/bi";
 import StudentAdmission from './Student/StudentAdmission';
 import StudentDetails from './Student/StudentDetails';
 import StudentAttendance from './Student/StudentAttendance';
+import { useDispatch } from 'react-redux';
+import { readStudentData } from '../../store/StudentDataSlice';
+import axios from 'axios';
+import { sendAttToStore } from '../../store/StudentAttendanceSlice';
 
 
 function MainPannel() {
+  const dispatch=useDispatch(); 
     const [togglebtn,setToggleBtn]=useState(false);
     const [pannel,setPannel]=useState('');
+    const [values,setValues]=useState([])
+    const [attData,setAttData]=useState([])
+    
+    // student Data sending on Store............... 
+   
+    useEffect(()=>{
+      axios.get('http://localhost:3000/readstudentinfo/')
+      .then(data=>{dispatch(readStudentData(data.data))})
+        .catch(err=>console.log(err))
+    },[])
+
+    // student Attendance sending on Store............... 
+    
+  useEffect(()=>{
+    axios.get('http://localhost:3000/readattendance/')
+      .then(data=>{dispatch(sendAttToStore(data.data)) })
+      .catch(err=>console.log(err))
+  },[])
+
 
     const togelSideBar=()=>{
         const sidebar=document.getElementById('sidebarMenu');

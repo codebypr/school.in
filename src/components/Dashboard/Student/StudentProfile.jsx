@@ -29,14 +29,7 @@ function StudentProfile({data}) {
                 <td>Religion</td>
                 <td>{data.religion}</td>
               </tr>
-              <tr>
-                <td>Email</td>
-                <td >{data.email}</td>
-              </tr>
-              <tr>
-                <td>Medical History</td>
-                <td ></td>
-              </tr>
+              
               <tr>
                 <td>Note</td>
                 <td>he dear todat is Off</td>
@@ -47,32 +40,45 @@ function StudentProfile({data}) {
                 <td className=' bg-secondary-subtle '></td>
               </tr>
               <tr>
+                <td>State</td>
+                <td>{data.state}</td>
+              </tr>
+              <tr>
+                <td>City</td>
+                <td>{data.city}</td>
+              </tr>
+              <tr>
                 <td>Current Address</td>
                 <td>{data.address}</td>
               </tr>
-              <tr>
-                <td>Permanent Address</td>
-                <td>{data.address}</td>
-              </tr>
+              
               <tr>
                 <td className='bg-secondary-subtle '><b>Parent Guardian Detail</b></td>
                 <td className=' bg-secondary-subtle '></td>
               </tr>
               <tr>
                 <td>Father Name</td>
-                <td>{data.fname}</td>
+                <td>{data.fatherName}</td>
               </tr>
               <tr>
-                <td>Father Phone</td>
-                <td>{data.fname}</td>
+                <td>Phone</td>
+                <td>{data.fatherPhone}</td>
+              </tr>
+              <tr>
+                <td>Occupation</td>
+                <td>{data.fatherOcc}</td>
               </tr>
               <tr>
                 <td>Mother Name</td>
-                <td>{data.fname}</td>
+                <td>{data.motherName}</td>
               </tr>
               <tr>
-                <td>Mother Phone</td>
-                <td>{data.fname}</td>
+                <td>Phone</td>
+                <td>{data.motherPhone}</td>
+              </tr>
+              <tr>
+                <td>Occupation</td>
+                <td>{data.motherOcc}</td>
               </tr>
             </tbody>
           </table>

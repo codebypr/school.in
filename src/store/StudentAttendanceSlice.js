@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import axios from "axios";
 
 const initialState={
     attendance:[
@@ -30,15 +31,17 @@ export const StudentAttendanceSlice=createSlice({
     initialState,
     reducers:{
         addAttendance:(state,action)=>{
-            const att={
-                id:action.payload.id,
-                date:action.payload.date,
-                att:action.payload.att,
-            }
-            state.attendance.push(att);
+            axios.post('http://localhost:3000/sendattendance',action.payload)
+            .then(res=>console.log( "Attendence successfuly added !"))
+            .catch(err=>console.log(" Attendence not added ! "+err))
+        },
+
+        sendAttToStore:(state,action)=>{
+            const data = action.payload;
+            state.attendance = data;
         }
     }
 })
 
-export const {addAttendance} = StudentAttendanceSlice.actions
+export const {addAttendance,sendAttToStore} = StudentAttendanceSlice.actions
 export default StudentAttendanceSlice.reducer

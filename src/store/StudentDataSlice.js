@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import axios from "axios"
 
 const initialState={
     studentData:[
@@ -23,32 +24,26 @@ export const StudentDataSlice=createSlice({
     initialState,
     reducers:{
             addNewStudent:(state,action)=>{
-                const newStd={
-                    id      : action.payload.id,
-                    name    : action.payload.name,
-                    clas    : action.payload.clas,
-                    roll    : action.payload.roll,
-                    dob     : action.payload.dob,
-                    email   : action.payload.email,
-                    section : action.payload.section,
-                    gender  : action.payload.gender,
-                    category: action.payload.category,
-                    caste   : action.payload.caste,
-                    religion: action.payload.religion,
-                    state   : action.payload.state,
-                    city    : action.payload.city,
-                    phone   : action.payload.phone,
-                    admissionDate      : action.payload.admissionDate,
-                    fName   : action.payload.fName,
-                    mName   : action.payload.mName,
-                    fPhone  : action.payload.fPhone,
-                    mPhone  : action.payload.mPhone,
-                    
-                }
-                state.studentData.push(newStd);
+             
+                axios.post('http://localhost:3000/sendstudentinfo',action.payload)
+                 .then(res=>console.log( "new student successfuly added !"))
+                 .catch(err=>console.log("new student not added ! "+err))
+            },
+
+            editStudentDetails:(state,action)=>{
+                const id = action.payload.id;
+                axios.put('http://localhost:3000/editstudentinfo/'+id,action.payload)
+                 .then(res=>console.log( "Edit student successfuly !"))
+                 .catch(err=>console.log(" student not edit ! "+err))
+                 
+            },
+
+            readStudentData:(state,action)=>{
+                const data=action.payload;
+                state.studentData=data;
             }
     }
 })
 
-export const {addNewStudent} =StudentDataSlice.actions
+export const {addNewStudent,readStudentData,editStudentDetails} =StudentDataSlice.actions
 export default StudentDataSlice.reducer

@@ -18,18 +18,18 @@ function StudentViewSection({data}) {
                 style={{width:'150px',zIndex:'1'}}/>
             </div>
             <div className="ms-3" style={{marginTop:'70px'}}>
-              <h5 className='mb-0'>{data.name}</h5>
+              <h5 className='mb-0'>{data.firstName}</h5>
               <p>{data.city}</p>
             </div>
           </div>
           <div className="p-4 text-black" style={{backgroundColor:'#f8f9fa'}}>
             <div className="d-flex justify-content-end text-center py-1">
               <div>
-                <p className="mb-1 h6">25311</p>
+                <p className="mb-1 h6">{data.id}</p>
                 <p className="small text-muted mb-0">Admission No</p>
               </div>
               <div className="px-3">
-                <p className="mb-1 h6">1026</p>
+                <p className="mb-1 h6">{data.roll}</p>
                 <p className="small text-muted mb-0">Roll No</p>
               </div>
              
@@ -40,7 +40,7 @@ function StudentViewSection({data}) {
             <tbody>    
               <tr>
                 <td>Class</td>
-                <td className='text-end'>{data.clas}</td>
+                <td className='text-end'>{data.class}</td>
               </tr>
               <tr>
                 <td>Section</td>

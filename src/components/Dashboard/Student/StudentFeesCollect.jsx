@@ -7,7 +7,7 @@ function StudentFeesCollect({data}) {
             <div className="row">
                 <label  className="col-sm-2 col-form-label">Name</label>
                 <div className="col-sm-10 mb-2">
-                <label className="form-control" >{data.name}</label>
+                <label className="form-control" >{data.firstName}</label>
                 </div>
             </div>
             <div className="row">

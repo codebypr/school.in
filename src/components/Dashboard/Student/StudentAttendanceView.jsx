@@ -12,7 +12,7 @@ function StudentAttendanceView({ data }) {
 
   const getAttendance = () => {
     for (let i = 0; i < AttData.length; i++) {
-      if ((AttData[i]).id == data.id) {
+      if ((AttData[i]).attendanceId == data.id) {
         let date = (AttData[i]).date
         let arr = date.split('-');
 
@@ -32,7 +32,7 @@ function StudentAttendanceView({ data }) {
         row.forEach((a) => {
 
           let box = a.children[month];
-          box.innerText = (AttData[i]).att
+          box.innerText = (AttData[i]).attendance
 
         })
 
@@ -42,7 +42,6 @@ function StudentAttendanceView({ data }) {
   }
 
   useEffect(() => {
-
     getAttendance();
 
   }, [])
@@ -52,15 +51,17 @@ function StudentAttendanceView({ data }) {
         <table className=" table text-center">
           
             <thead key='thead'>
-
+                <tr>
+                  
               {
-                dateArr[1].map((ele) => (<td>{ele}</td>))
+                dateArr[1].map((ele,i) => (<th key={i}>{ele}</th>))
               }
+                </tr>
             </thead>
             <tbody key='tbody'>
             {
-              dateArr[0].map((ele) => (<tr name={ele}><td className='fw-bold'>{ele}</td>
-                {dateArr[2].map((box) => (<td className='border ' id={box}>-</td>))}
+              dateArr[0].map((ele,i) => (<tr name={ele} key={i}><td className='fw-bold'>{ele}</td>
+                {dateArr[2].map((box,i) => (<td className='border ' id={box} key={i}>-</td>))}
               </tr>))
             }
           </tbody>
