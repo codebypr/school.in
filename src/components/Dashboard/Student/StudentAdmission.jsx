@@ -9,6 +9,7 @@ import Alert from '../../Alert';
 
 function StudentAdmission({ data }) {
     const [alert, setAlert] = useState(false);
+    const [password, setPassword] = useState('');
     const [editAlert, setEditAlert] = useState(false);
     const [btnView, setBtnView] = useState(true);
     const [err, setErr] = useState('');
@@ -21,6 +22,7 @@ function StudentAdmission({ data }) {
         section: '',
         gender: '',
         dob: '',
+        email: '',
         phone: '',
         religion: '',
         category: '',
@@ -51,16 +53,22 @@ function StudentAdmission({ data }) {
                 setErr('Please select city !');
                 setTimeout(() => { setErr('') }, 3000)
             } else {
+                createPassword()
                 setAlert(true)
-                setTimeout(() => {
-                    setAlert(false)
-                    location.reload()
-                }, 3000)
-                console.log(values);
                 dispatch(addNewStudent(values))
             }
         }
     }
+    const createPassword=()=>{
+        let pass=''
+        let str='abcdefghijklmnopqrstuvwxyz1234567890@#$%&'
+        let length='8'
+        for (let i = 0; i < length; i++) {
+          pass+=str[ Math.floor(Math.random()*str.length)];            
+        }
+        setPassword(pass);
+}
+
 
     const editDetails = (e) => {
         e.preventDefault();
@@ -84,6 +92,34 @@ function StudentAdmission({ data }) {
         }
     }
 
+const confirm = () =>{
+    setAlert(false)
+    setValues({
+        firstName: '',
+        lastName: '',
+        roll: '',
+        class: '',
+        section: '',
+        gender: '',
+        dob: '',
+        email: '',
+        phone: '',
+        religion: '',
+        category: '',
+        caste: '',
+        admissionDate: '',
+        state: '',
+        city: '',
+        address: '',
+        fatherName: '',
+        fatherPhone: '',
+        fatherOcc: '',
+        motherName: '',
+        motherPhone: '',
+        motherOcc: '',
+    })
+}
+
     useEffect(() => {
         if (data !== undefined) {
             setValues(data)
@@ -92,7 +128,7 @@ function StudentAdmission({ data }) {
     }, [])
     return (
         <>
-
+               
             <div className="container mt-1 mb-5 ">
                 <form onSubmit={handleSubmit} id='form'>
                     <div className='border w-100 bg-secondary-subtle p-2 px-4' ><b>Basic Details</b></div>
@@ -182,8 +218,16 @@ function StudentAdmission({ data }) {
                                 />
                             </div>
                             <div className="col-md-3">
+                                <label >Email</label>
+                                <input type="email" className="form-control ps-2 p-0"
+                                    value={values.email}
+                                    onChange={(e) => setValues({ ...values, email: e.target.value })}
+                                    required
+                                />
+                            </div>
+                            <div className="col-md-3">
                                 <label >Mobile Number</label>
-                                <input type="text" className="form-control ps-2 p-0"
+                                <input type="number" className="form-control ps-2 p-0"
                                     value={values.phone}
                                     onChange={(e) => setValues({ ...values, phone: e.target.value })}
                                     required
@@ -360,8 +404,13 @@ function StudentAdmission({ data }) {
                                 <label htmlFor="inputEmail4" className="form-label">To Upload Multiple Document Compress It In A Single File Then Upload it.</label>
                                 <input type="file" className="form-control" id="inputEmail4" />
                             </div>
-                            {alert &&
-                                <Alert msg={'New student added successfully !'} type={'success'} />
+                            {   alert &&
+                                <div className='text-center'>
+                                <Alert msg={`New student added successfully. Your Password is ${password}`} type={'success'} />
+                                <button className='btn btn-primary btn-sm mt-0' style={{width:'100px'}}
+                                onClick={confirm}
+                                >Confirm</button>
+                                </div>
                             }
                             {editAlert &&
                                 <Alert msg={'Student Updated successfully !'} type={'success'} />
@@ -382,7 +431,6 @@ function StudentAdmission({ data }) {
                     </div>
                 </form>
             </div>
-
         </>
     )
 }

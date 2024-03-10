@@ -18,6 +18,10 @@ function StudentProfile({data}) {
                 <td>{data.category}</td>
               </tr>
               <tr>
+                <td>Email</td>
+                <td >{data.email}</td>
+              </tr>
+              <tr>
                 <td>Mobile Number</td>
                 <td >{data.phone}</td>
               </tr>

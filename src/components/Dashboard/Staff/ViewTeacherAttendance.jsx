@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 
-function StudentAttendanceView({ data }) {
-  const AttData = useSelector(state => state.stdAttReducer.attendance)
+function ViewTeacherAttendance({ data }) {
+  const [AttData,setAttData] = useState([]);
 
   const dateArr = [
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
@@ -10,8 +10,17 @@ function StudentAttendanceView({ data }) {
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
   ]
 
+  useEffect(()=>{
+    ;(async()=>{
+       const res= await axios.get('http://localhost:3000/readtecattendance')
+        setAttData(res.data)
+              
+    })()
+  },[])
+
   const getAttendance = () => {
     for (let i = 0; i < AttData.length; i++) {
+        
       if ((AttData[i]).attendanceId == data.id) {
         let date = (AttData[i]).date
         let arr = date.split('-');
@@ -40,11 +49,10 @@ function StudentAttendanceView({ data }) {
       }
     }
   }
-
-  useEffect(() => {
-    getAttendance();
-
-  }, [])
+ useEffect(()=>{
+    getAttendance()
+ },[AttData])
+  
   return (
     <>
       
@@ -72,4 +80,4 @@ function StudentAttendanceView({ data }) {
   )
 }
 
-export default StudentAttendanceView
+export default ViewTeacherAttendance

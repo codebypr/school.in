@@ -10,6 +10,7 @@ import group from '../MyImages/group.jpg'
 import { BiDoorOpen , BiBuilding , BiArch ,BiBulb} from "react-icons/bi";
 import { FaStar  } from "react-icons/fa";
 import Card from './Card';
+import AallStaff from './Dashboard/Staff/AallStaff';
 
 
 
@@ -148,7 +149,7 @@ const Home=()=> {
                 </div>
             </div>
                 
-                                
+                           
 
                                  {/* section ----- 5 */} 
 

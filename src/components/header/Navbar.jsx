@@ -33,6 +33,10 @@ function Navbar() {
                             </li>
 
                             <li className="nav-item">
+                                <NavLink className={({isActive})=>`nav-link active  ${isActive && `activeNav`}`} to={'/staff'}>STAFF</NavLink>
+                            </li>
+
+                            <li className="nav-item">
                                 <NavLink className={({isActive})=>`nav-link active  ${isActive && `activeNav`}`} to={'/online-admission'}>Online Admission</NavLink>
                             </li>
                             <li className="nav-item">

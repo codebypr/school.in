@@ -17,6 +17,7 @@ import Academic from "./components/Academic"
 import LoginForm from "./components/LoginForm"
 import MainPannel from "./components/Dashboard/MainPannel"
 import ShowAndHideComponent from "./components/header/ShowAndHideComponent"
+import Staff from "./components/Staff"
 
 function App() {
   
@@ -32,6 +33,7 @@ function App() {
         <Routes >
             <Route path="/" element={<Home/>}/>
             <Route path="/about" element={<About/>}/>
+            <Route path="/staff" element={<Staff/>}/>
             <Route path="/online-admission" element={<OnlineAdmission/>}/>
             <Route path="/exam-result" element={<ExamResult/>}/>
             <Route path="/smart-class" element={<SmartClassRoom/>}/>

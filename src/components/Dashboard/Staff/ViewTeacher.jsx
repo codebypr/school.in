@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import StudentProfile from './StudentProfile'
-import StudentAttendanceView from './StudentAttendanceView';
-import StudentFeesView from './StudentFeesView';
 import axios from 'axios';
+import TeacherProfile from './TeacherProfile';
+import ViewTeacherAttendance from './ViewTeacherAttendance';
 
-function StudentViewSection({data}) {
+function ViewTeacher({data}) {
   const [tab,setTab]=useState('');
   const [feesData,setFeesData]=useState([]);
 
 
 // getting fees data from backend..........
-  useEffect(()=>{
-    const id=data.id;
-   axios.get('http://localhost:3000/readfees/'+id)
-   .then(res=>{setFeesData(res.data)})
-   .catch(err=>{console.log(err)})
-},[])
+//   useEffect(()=>{
+//     const id=data.id;
+//    axios.get('http://localhost:3000/readfees/'+id)
+//    .then(res=>{setFeesData(res.data)})
+//    .catch(err=>{console.log(err)})
+// },[])
 
   return (
     <>
@@ -36,14 +35,6 @@ function StudentViewSection({data}) {
           </div>
           <div className="p-4 text-black" style={{backgroundColor:'#f8f9fa'}}>
             <div className="d-flex justify-content-end text-center py-1">
-              <div>
-                <p className="mb-1 h6">{data.id}</p>
-                <p className="small text-muted mb-0">Admission No</p>
-              </div>
-              <div className="px-3">
-                <p className="mb-1 h6">{data.roll}</p>
-                <p className="small text-muted mb-0">Roll No</p>
-              </div>
              
             </div>
           </div>
@@ -51,12 +42,12 @@ function StudentViewSection({data}) {
           <table className="table">  
             <tbody>    
               <tr>
-                <td>Class</td>
-                <td className='text-end'>{data.class}</td>
+                <td>Staff ID</td>
+                <td className='text-end'>{data.id}</td>
               </tr>
               <tr>
-                <td>Section</td>
-                <td className='text-end'>{data.section}</td>
+                <td>Role</td>
+                <td className='text-end'>{data.role}</td>
               </tr>
               <tr>
                 <td>Gender</td>
@@ -77,11 +68,6 @@ function StudentViewSection({data}) {
                     onClick={()=>setTab('profile')}
                   >Profile</button>
                   </li>
-                <li className="nav-item">
-                  <button className="nav-link text-black" 
-                    onClick={()=>setTab('fees')}
-                  >Fees</button>
-                </li>
                                 
                 <li className="nav-item">
                   <button className="nav-link text-black "
@@ -94,14 +80,12 @@ function StudentViewSection({data}) {
               
 <div className='shadow-lg'>
                {
-                  tab=='profile' && (<StudentProfile data={data}/>)
+                  tab=='profile' && (<TeacherProfile data={data}/>)
                 }
                 {
-                  tab=='attendance' && (<StudentAttendanceView data={data}/>)
+                  tab=='attendance' && (<ViewTeacherAttendance data={data}/>)
                 }
-                {
-                  tab=='fees' && (<StudentFeesView studentData={data} feesData={feesData}/>)
-                }
+                
               
               </div>             
                 </div>
@@ -112,4 +96,4 @@ function StudentViewSection({data}) {
   )
 }
 
-export default StudentViewSection
+export default ViewTeacher

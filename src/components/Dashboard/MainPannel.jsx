@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import {  FaHome } from "react-icons/fa"
+import {  FaHome,FaRupeeSign ,FaChalkboard ,FaUserCheck  } from "react-icons/fa"
 import { IoMenu,IoReceipt ,IoPersonAdd,IoHandRightSharp} from "react-icons/io5";
 import { BiSolidUserDetail } from "react-icons/bi";
+import { FaUsersViewfinder } from "react-icons/fa6";
 
 import StudentAdmission from './Student/StudentAdmission';
 import StudentDetails from './Student/StudentDetails';
@@ -10,6 +11,11 @@ import { useDispatch } from 'react-redux';
 import { readStudentData } from '../../store/StudentDataSlice';
 import axios from 'axios';
 import { sendAttToStore } from '../../store/StudentAttendanceSlice';
+import Expenses from './Expense/Expenses';
+import NoticeBoard from './Communicate/NoticeBoard';
+import AddNewStaff from './Staff/AddNewStaff';
+import StaffDetails from './Staff/StaffDetails';
+import StaffAttendance from './Staff/StaffAttendance';
 
 
 function MainPannel() {
@@ -62,20 +68,41 @@ function MainPannel() {
   <nav id="sidebarMenu" className="collapse d-lg-block sidebar collapse " style={{backgroundColor:'#242426',width:'210px'}}>
     <div className="position-sticky">
       <div className="list-group list-group-flush mt-4 sideBtn ">        
-        <button  className="text-start py-2  w-100" onClick={()=>setToggleBtn(false)}>
+        <button  className="text-start py-2  w-100" onClick={()=>{setToggleBtn(false);setPannel('')}}>
           <FaHome className="mx-3 " color='white' size={20}/><span>Main dashboard</span>
         </button>
+
         <button  className="text-start py-2 w-100" onClick={()=>{setPannel('student admission'); setToggleBtn(false)}}>
           <IoPersonAdd className="mx-3" color='white' size={20}/><span>Student Admission</span>
         </button>
+
         <button  className="text-start py-2 w-100" onClick={()=>{setPannel('student details'); setToggleBtn(false)}}>
           <BiSolidUserDetail className="mx-3" color='white' size={20}/><span>Student Details</span>
         </button>
+
         <button  className="text-start py-2 w-100" onClick={()=>{setPannel('collect fees'); setToggleBtn(false)}}>
           <IoReceipt className="mx-3" color='white' size={20}/><span>Collect Fees</span>
         </button>
+
         <button  className="text-start py-2 w-100" onClick={()=>{setPannel('attendance'); setToggleBtn(false)}}>
           <IoHandRightSharp className="mx-3" color='white' size={20}/><span>Student Attendance</span>
+        </button>
+
+        <button  className="text-start py-2 w-100" onClick={()=>{setPannel('expenses'); setToggleBtn(false)}}>
+          <FaRupeeSign className="mx-3" color='white' size={20}/><span>Expenses</span>
+        </button>
+
+        <button  className="text-start py-2 w-100" onClick={()=>{setPannel('notice board'); setToggleBtn(false)}}>
+          <FaChalkboard  className="mx-3" color='white' size={20}/><span>Notice Board</span>
+        </button>
+        <button className="text-start py-2 w-100" onClick={()=>{setPannel('all staff'); setToggleBtn(false)}}>
+          <FaUsersViewfinder  className="mx-3" color='white' size={20}/><span>All Members</span>
+        </button>
+        <button className="text-start py-2 w-100" onClick={()=>{setPannel('add staff'); setToggleBtn(false)}}>
+          <FaUserCheck   className="mx-3" color='white' size={20}/><span>Add New Member</span>
+        </button>
+        <button className="text-start py-2 w-100" onClick={()=>{setPannel('teacher attendance'); setToggleBtn(false)}}>
+          <IoHandRightSharp   className="mx-3" color='white' size={20}/><span>Teacher Attendance</span>
         </button>
       </div>
     </div>
@@ -104,6 +131,13 @@ function MainPannel() {
 {/* <!--Main layout--> */}
 <main style={{marginTop:'56px'}}>
   {
+    pannel=='' && (<>
+    <div className="container text-center"><img src={'https://i.pinimg.com/474x/cb/6e/4d/cb6e4d9aaf52b49fd12173c5f8e36a67.jpg'} width={180}/></div>
+    <h4>Current Notice</h4>
+    <NoticeBoard hide={'hide'}/>
+    </>)
+  }
+  {
     pannel=='student admission' && (<StudentAdmission/>)
   }
   {
@@ -114,6 +148,21 @@ function MainPannel() {
   }
   {
     pannel=='attendance' && (<StudentAttendance/>)
+  }
+  {
+    pannel=='expenses' && (<Expenses/>)
+  }
+  {
+    pannel=='notice board' && (<NoticeBoard/>)
+  }
+  {
+    pannel=='all staff' && (<StaffDetails/>)
+  }
+  {
+    pannel=='add staff' && (<AddNewStaff/>)
+  }
+  {
+    pannel=='teacher attendance' && (<StaffAttendance/>)
   }
 </main>
 

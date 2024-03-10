@@ -4,25 +4,38 @@ import React, { useEffect, useState } from 'react'
 import { FaEye } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { TbArrowBackUp } from "react-icons/tb";
-import { IoReceipt } from "react-icons/io5";
 import { useSelector } from 'react-redux';
 import DataTable from 'react-data-table-component';
-import StudentViewSection from './StudentViewSection';
-import StudentFeesCollect from './StudentFeesCollect';
-import StudentAdmission from './StudentAdmission';
+import axios from 'axios';
+import ViewTeacher from './ViewTeacher';
+import AddNewStaff from './AddNewStaff';
 
 
 
-function StudentDetails({fees,view}) {
+
+function StaffDetails() {
     const studentinfo = useSelector(state => state.stdReducer.studentData)
     const [search, setSearch] = useState('')
     const [pannel,setPannel]=useState('');
     const [row,setRow]=useState({});
+    const [values,setValues]=useState([]);
+    const [realValues,setRealValues]=useState([]);
 
     const [studentData, setStudentData] = useState([])
     
+    useEffect(() => {
+        ; (async () => {
+          const result = await axios.get('http://localhost:3000/readteacherinfo')
+          setValues(result.data);
+          setRealValues(result.data);
+        })()
+      }, [])
 
     const columns = [
+        {
+            name: 'Date of Joining',
+            selector: row => row.doj
+        },
         {
             name: 'Photo',
             selector: row => <img src={user} style={{ width: '7vmin', height: '7vmin', objectFit: 'cover', borderRadius: '50%', padding: '5px' }} />
@@ -31,14 +44,10 @@ function StudentDetails({fees,view}) {
             name: 'Name',
             selector: row => row.firstName
         },
+        
         {
-            name: 'Roll No',
-            selector: row => row.roll,
-            sortable: 'true'
-        },
-        {
-            name: 'Class',
-            selector: row => row.class
+            name: 'Role',
+            selector: row => row.role
         },
         {
             name: 'City',
@@ -48,16 +57,12 @@ function StudentDetails({fees,view}) {
             name: 'Phone',
             selector: row => row.phone
         },
-view==true ?   {
+        {
             name: 'Action',
             selector: row => <button className='stdEyeBtn' >
                  <FaEye color='black' onClick={()=>viewBtn(row)}/> 
                  <CiEdit color='black' className='ms-2' onClick={() =>editStdDetails(row)}/> </button>
-                }:
-fees==true && {   
-            name: 'Action',
-            selector: row => <button className='stdEyeBtn' data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>setRow(row)}> <IoReceipt color='black' /> collect fees</button>
-                },
+            }
     ]
 
 
@@ -72,11 +77,10 @@ fees==true && {
     }
    
     useEffect(() => {
-        setStudentData(studentinfo);
-        const result = studentinfo.filter((student) => (
+        const result = realValues.filter((student) => (
             student.firstName.toLowerCase().match(search.toLowerCase())
         ))
-        setStudentData(result)
+        setValues(result)
     }, [search])
 
 
@@ -84,8 +88,8 @@ fees==true && {
         <>
 
                 { pannel==''  &&
-                    <DataTable data={studentData} columns={columns}
-                    title='All Student'
+                    <DataTable data={values} columns={columns}
+                    title='All Staff Members'
                     pagination
                     fixedHeader
                     fixedHeaderScrollHeight='65vmin'
@@ -103,36 +107,19 @@ fees==true && {
                          pannel=='view' && (
                          <>
                             <button className='shadow px-2 stdEyeBtn' onClick={()=>setPannel('')}>Go Back <TbArrowBackUp size={20}/></button>
-                            <StudentViewSection data={row}/>
+                            <ViewTeacher data={row}/>
                          </>)
                 }
                 {
                          pannel=='edit' && (
                          <>
                             <button className='shadow px-2 stdEyeBtn' onClick={()=>setPannel('')}>Go Back <TbArrowBackUp size={20}/></button>
-                            <StudentAdmission data={row}/>
+                            <AddNewStaff data={row}/>
                          </>)
                 }
-
-
-{/*           Modal             */}
-
-<div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div className="modal-dialog">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-        <StudentFeesCollect data={row}/>
-      
-    </div>
-  </div>
-</div>
 
         </>
     )
 }
 
-export default StudentDetails
+export default StaffDetails
