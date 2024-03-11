@@ -40,4 +40,4 @@ function AallStaff() {
   )
 }
 
-export default AallStaff
+export default AallStaff;

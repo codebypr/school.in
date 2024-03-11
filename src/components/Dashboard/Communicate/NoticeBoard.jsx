@@ -5,21 +5,27 @@ import axios from 'axios';
 function NoticeBoard({hide}) {
   const [notices,setNotices] = useState([])
   const [notice,setNotice] = useState({})
-    const [viewPostSection,setViewPostSection] = useState(false);
+  const [myState,setMyState] = useState({})
+  const [viewPostSection,setViewPostSection] = useState(false);
+
     useEffect(()=>{
       ;(async()=>{
         const result = await axios.get('http://localhost:3000/readnotice');
        setNotices(result.data);
       })()
-    },[])
+    },[myState])
 
-
+  const deleteNotice = (id)=>{
+    axios.delete('http://localhost:3000/deletenotice/'+id)
+    .then(res=>setMyState(true))
+     .catch(err=>console.log(" Teacher not deleted ! "+err))
+  }
   return (
     <>
     {hide!=='hide' && <div className="container text-end">
         { viewPostSection==false ?
-            <button onClick={()=>setViewPostSection(true)}>Add New Post</button>:
-            <button onClick={()=>setViewPostSection(false)}>Back</button>
+            <button className='btn btn-warning my-3' onClick={()=>setViewPostSection(true)}>Add New Post</button>:
+            <button className='btn btn-warning my-3' onClick={()=>setViewPostSection(false)}>Back</button>
         }
     </div>}
 
@@ -29,10 +35,16 @@ function NoticeBoard({hide}) {
     <div className='list-group '>
         {
           notices.map((data,i)=>(
-            <button className="list-group-item list-group-item-action px-3 border-0 shadow my-3 " key={i}data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
-            onClick={()=>{setNotice(data)}}
+            <div className="list-group-item list-group-item-action px-3 border-0 shadow my-3 d-flex  justify-content-between" key={i}
             >
-              {data.title}</button>
+              <button className='w-100 btn btn-light'
+              data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+              onClick={()=>{setNotice(data)}}
+              >{data.title} </button>
+              <button className="btn btn-danger btn-sm z-1"
+              onClick={()=>deleteNotice(data.id)}
+              >delete</button>
+              </div>
           ))
         }
     </div>   
