@@ -3,25 +3,51 @@ import StudentProfile from './StudentProfile'
 import StudentAttendanceView from './StudentAttendanceView';
 import StudentFeesView from './StudentFeesView';
 import axios from 'axios';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
-function StudentViewSection({data}) {
+function StudentViewSection({id}) {
   const [tab,setTab]=useState('');
   const [feesData,setFeesData]=useState([]);
+  const [data,setData]=useState([]);
+  const [studentId,setStudentId] = useState('')
 
 
 // getting fees data from backend..........
   useEffect(()=>{
-    const id=data.id;
    axios.get('http://localhost:3000/readfees/'+id)
    .then(res=>{setFeesData(res.data)})
    .catch(err=>{console.log(err)})
 },[])
 
+  useEffect(()=>{
+   axios.get('http://localhost:3000/readsinglestudentinfo/'+id)
+   .then(res=>{setData(res.data[0])})
+   .catch(err=>{console.log(err)})
+},[])
+
+
+const handleDownloadPDF = () => {
+  const form = document.getElementById('ICard');
+
+  html2canvas(form)
+    .then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF();
+      const imgWidth = 90; // A4 width in mm
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      
+      pdf.addImage(imgData, 'PNG', 60, 20, imgWidth, imgHeight);
+      pdf.save('ID card.pdf');
+    });
+};
   return (
-    <>
+    <div className='container'>
         <div className="contaner">
             <div className="row">
                 <div className="col-xl-3 p-0">
+                <button onClick={handleDownloadPDF} className="btn btn-primary btn-sm  mt-2">Download ID Card</button>
+                <form id="ICard" >
                 <div className="card shadow-lg mb-5">
           <div className="rounded-top text-white d-flex flex-row" style={{backgroundColor:'#000',height:'150px'}}>
             <div className="ms-4 mt-5 d-flex flex-column" style={{width:'100px'}}>
@@ -47,7 +73,7 @@ function StudentViewSection({data}) {
              
             </div>
           </div>
-          <div className="card-body p-4 text-black">
+          <div className="card-body p-4 text-black bg-white">
           <table className="table">  
             <tbody>    
               <tr>
@@ -65,7 +91,7 @@ function StudentViewSection({data}) {
             </tbody>
           </table>
           </div>
-        </div>
+        </div></form>
       </div>
 
                 {/*  2nd */}
@@ -89,10 +115,8 @@ function StudentViewSection({data}) {
                   >Attendance</button>
                   </li>                
               </ul>
-
-               
-              
-<div className='shadow-lg'>
+             
+      <div className='shadow-lg'>
                {
                   tab=='profile' && (<StudentProfile data={data}/>)
                 }
@@ -108,7 +132,7 @@ function StudentViewSection({data}) {
             </div>
         </div>
     
-    </>
+    </div>
   )
 }
 

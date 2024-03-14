@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { FaSave } from "react-icons/fa";
-import { addAttendance } from '../../../store/StudentAttendanceSlice';
 import Alert from '../../Alert';
 import axios from 'axios';
 

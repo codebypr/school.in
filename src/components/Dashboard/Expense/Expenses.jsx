@@ -5,7 +5,7 @@ import ViewExpenses from './ViewExpenses'
 function Expenses() {
     return (
         <>
-            <div className="container p-0">
+            <div className="container">
                 <div className="row ">
                     <div className="col-xl-3 p-0">
                         <AddExpenses />

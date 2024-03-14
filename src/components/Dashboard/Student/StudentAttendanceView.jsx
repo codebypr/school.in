@@ -1,8 +1,10 @@
+import axios from 'axios';
 import React, { useEffect } from 'react'
+import { useState } from 'react';
 import { useSelector } from 'react-redux'
 
 function StudentAttendanceView({ data }) {
-  const AttData = useSelector(state => state.stdAttReducer.attendance)
+  const [AttData,setAttData] = useState([]);
 
   const dateArr = [
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
@@ -41,10 +43,18 @@ function StudentAttendanceView({ data }) {
     }
   }
 
-  useEffect(() => {
-    getAttendance();
+  useEffect(()=>{
+    ;(async()=>{
+       const res= await axios.get('http://localhost:3000/readstdattendance')
+        setAttData(res.data)
+              
+    })()
+  },[])
 
-  }, [])
+  useEffect(()=>{
+    getAttendance()
+ },[AttData])
+  
   return (
     <>
       

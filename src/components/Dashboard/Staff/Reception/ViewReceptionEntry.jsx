@@ -1,12 +1,8 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { useSelector } from 'react-redux';
 
-function ViewExpenses() {
-    const stateChange=useSelector(state=>state.redUpdatedState.updatedState)
-
-    
+function ViewReceptionEntry() {
     const [search,setSearch] = useState('');
     const [realData,setRealData] = useState([]);
     const [updatedData,setUpdatedData] = useState([]);
@@ -14,44 +10,45 @@ function ViewExpenses() {
 
     useEffect(()=>{
         ;(async ()=>{
-            const res = await axios.get('http://localhost:3000/readexpense')
+            const res = await axios.get('http://localhost:3000/readreceptionentry')
             setRealData(res.data)
             setUpdatedData(res.data)
-            console.log(res.data);
         })()  
-    },[stateChange])
+    },[])
 
     const columns = [
         {
             name: 'S.NO',
-            selector: row => row.expenseId
+            selector: row => row.id,
+            sortable: 'true'
         },
         {
             name: 'Name',
             selector: row => row.name
         },
         {
-            name: 'Expense Head',
-            selector: row => row.type,
-             sortable: 'true'
+            name: 'Purpose',
+            selector: row => row.purpose,
         },
         {
             name: 'Date',
             selector: row => row.date
         },
         {
-            name: 'Amount ($)',
-            selector: row => row.amount,
-             sortable: 'true'
+            name: 'Address',
+            selector: row => row.address,
         },
         {
-            name: 'Description',
-            selector: row => row.description
+            name: 'Phone',
+            selector: row => row.phone
         },
         {
-            name: 'Invoice No',
-            selector: row => row.invoiceNumber,
-             sortable: 'true'
+            name: 'Email',
+            selector: row => row.email
+        },
+        {
+            name: 'Message',
+            selector: row => row.message,
         },
         
        
@@ -61,18 +58,18 @@ function ViewExpenses() {
    useEffect( () => {
         setUpdatedData(realData);
         const result = realData.filter((data) => (
-            data.name.toLowerCase().match(search.toLowerCase())
+            data.purpose.toLowerCase().match(search.toLowerCase())
         ))
         setUpdatedData(result)
     },[search])
   return (
     <>
-        <div className="conatiner border">
+        <div className="conatiner shadow-lg me-4">
         <DataTable data={updatedData} columns={columns}
-                    title='Expense List'
+                    title='All Entries for users'
                     pagination
                     fixedHeader
-                    fixedHeaderScrollHeight='62vmin'
+                    fixedHeaderScrollHeight='100vmin'
                     subHeader
                     subHeaderComponent={
                         <input type='text' placeholder='search fere' className='border border-0 border-bottom'style={{outline:'none'}}
@@ -87,4 +84,5 @@ function ViewExpenses() {
   )
 }
 
-export default ViewExpenses
+
+export default ViewReceptionEntry

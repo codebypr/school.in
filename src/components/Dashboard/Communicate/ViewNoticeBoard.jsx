@@ -1,40 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import AddPost from './AddPost'
 import axios from 'axios';
 
-function NoticeBoard() {
+function ViewNoticeBoard({type}) {
   const [notices,setNotices] = useState([])
   const [notice,setNotice] = useState({})
-  const [myState,setMyState] = useState({})
-  const [viewPostSection,setViewPostSection] = useState(false);
+ 
+ 
 
     useEffect(()=>{
       ;(async()=>{
         const result = await axios.get('http://localhost:3000/readnotice');
        setNotices(result.data);
       })()
-    },[myState])
+    },[])
 
-  const deleteNotice = (id)=>{
-    axios.delete('http://localhost:3000/deletenotice/'+id)
-    .then(res=>setMyState(true))
-     .catch(err=>console.log(" Teacher not deleted ! "+err))
-  }
   return (
     <>
-    <div className="container text-end">
-        { viewPostSection==false ?
-            <button className='btn btn-warning my-3' onClick={()=>setViewPostSection(true)}>Add New Post</button>:
-            <button className='btn btn-warning my-3' onClick={()=>setViewPostSection(false)}>Back</button>
-        }
-    </div>
-
-    { viewPostSection && <AddPost/> }       
-        
-   { !viewPostSection &&
+    
     <div className='list-group '>
         {
-          notices.map((data,i)=>(
+          notices.map((data,i)=>data.messageTo.includes(type) &&(
             
             <div className="list-group-item list-group-item-action px-3 border-0 shadow my-3 d-flex  justify-content-between" key={i}
             >
@@ -42,9 +27,6 @@ function NoticeBoard() {
               data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
               onClick={()=>{setNotice(data)}}
               >{data.title} </button>
-              <button className="btn btn-danger btn-sm z-1"
-              onClick={()=>deleteNotice(data.id)}
-              >delete</button>
               </div>
           ) 
 
@@ -52,7 +34,7 @@ function NoticeBoard() {
           )
         }
     </div>   
-   }
+   
 
 <div className="offcanvas offcanvas-end"  id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div className="offcanvas-header">
@@ -93,4 +75,4 @@ function NoticeBoard() {
   )
 }
 
-export default NoticeBoard
+export default ViewNoticeBoard

@@ -7,7 +7,7 @@ import { FaRegHeart, FaWallet  } from "react-icons/fa";
 export default function Maincards() {
   return (
     <>
-    <div className="px-2">
+    <div className="container ">
   <section>
       <div className="text-center"><img src={'https://i.pinimg.com/474x/cb/6e/4d/cb6e4d9aaf52b49fd12173c5f8e36a67.jpg'} width={180}/></div> 
     <div className="row">

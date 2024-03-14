@@ -140,9 +140,8 @@ function AddNewStaff({ data }) {
                                     <option value={''}>select</option>
                                     <option value={'Admin'}>Admin</option>
                                     <option value={'Teacher'}>Teacher</option>
-                                    <option value={'Accountant'}>Accountant</option>
                                     <option value={'Librarian'}>Librarian</option>
-                                    <option value={'Receeptionist'}>Receeptionist</option>
+                                    <option value={'Receptionist'}>Receptionist</option>
 
                                 </select>
                             </div>

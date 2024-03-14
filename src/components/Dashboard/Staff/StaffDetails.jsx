@@ -106,8 +106,8 @@ function StaffDetails() {
                 {
                          pannel=='view' && (
                          <>
-                            <button className='shadow px-2 stdEyeBtn' onClick={()=>setPannel('')}>Go Back <TbArrowBackUp size={20}/></button>
-                            <ViewTeacher data={row}/>
+                            <button className='shadow px-2 btn btn-dark btn-sm' onClick={()=>setPannel('')}>Go Back <TbArrowBackUp size={20}/></button>
+                            <ViewTeacher id={row.id}/>
                          </>)
                 }
                 {

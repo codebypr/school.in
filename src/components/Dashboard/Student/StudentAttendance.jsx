@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { useDispatch, useSelector } from 'react-redux'
 import { FaSave } from "react-icons/fa";
-import { addAttendance } from '../../../store/StudentAttendanceSlice';
 import Alert from '../../Alert';
+import axios from 'axios';
 
 function StudentAttendance() {
-    const stdInfo = useSelector(state => state.stdReducer.studentData)
+    const [stdInfo,setStdInfo] = useState([])
     const [studentData, setStudentData] = useState([]);
     const [search, setSearch] = useState('');
     const [attState, setAttState] = useState({});
     const [alert, setAlert] = useState(false);
 
-    const dispatch = useDispatch();
+    useEffect(()=>{
+        axios.get('http://localhost:3000/readstudentinfo/')
+        .then(data=>{setStdInfo(data.data);setStudentData(data.data)})
+          .catch(err=>console.log(err))
+      },[])
 
     const columns = [
         {
@@ -52,11 +55,12 @@ function StudentAttendance() {
                     attState.id = std.id;
                     attState.date = date.value;
                     attState.att = input.value
-                    dispatch(addAttendance(attState));
-                    setAlert(true)
+                    axios.post('http://localhost:3000/sendstdattendance',attState)
+                    .then(res=>setAlert(true))
+                    .catch(err=>console.log(" Attendence not added ! "+err))
+                   
                     setTimeout(()=>{
                         setAlert(false)
-                        location.reload()
                     },2000)
                 }
             })

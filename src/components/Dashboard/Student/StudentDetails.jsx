@@ -10,17 +10,24 @@ import DataTable from 'react-data-table-component';
 import StudentViewSection from './StudentViewSection';
 import StudentFeesCollect from './StudentFeesCollect';
 import StudentAdmission from './StudentAdmission';
+import axios from 'axios';
 
 
 
 function StudentDetails({fees,view}) {
-    const studentinfo = useSelector(state => state.stdReducer.studentData)
+   
     const [search, setSearch] = useState('')
     const [pannel,setPannel]=useState('');
     const [row,setRow]=useState({});
 
+    const [studentinfo, setStudentIfo] = useState([])
     const [studentData, setStudentData] = useState([])
     
+    useEffect(()=>{
+        axios.get('http://localhost:3000/readstudentinfo/')
+        .then(data=>{setStudentIfo(data.data);setStudentData(data.data)})
+          .catch(err=>console.log(err))
+      },[])
 
     const columns = [
         {
@@ -51,7 +58,7 @@ function StudentDetails({fees,view}) {
 view==true ?   {
             name: 'Action',
             selector: row => <button className='stdEyeBtn' >
-                 <FaEye color='black' onClick={()=>viewBtn(row)}/> 
+                 <FaEye color='black' onClick={()=>viewBtn(row.id)}/> 
                  <CiEdit color='black' className='ms-2' onClick={() =>editStdDetails(row)}/> </button>
                 }:
 fees==true && {   
@@ -102,8 +109,8 @@ fees==true && {
                 {
                          pannel=='view' && (
                          <>
-                            <button className='shadow px-2 stdEyeBtn' onClick={()=>setPannel('')}>Go Back <TbArrowBackUp size={20}/></button>
-                            <StudentViewSection data={row}/>
+                            <button className='shadow px-2  btn btn-dark btn-sm' onClick={()=>setPannel('')}>Go Back <TbArrowBackUp size={20}/></button>
+                            <StudentViewSection id={row}/>
                          </>)
                 }
                 {
