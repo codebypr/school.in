@@ -29,8 +29,48 @@ function AddNewStaff({ data }) {
         address: '',
         qualification: '',
         experience: '',
+        password: '',
     });
 
+
+    const createPassword=()=>{
+        let pass=''
+        let str='abcdefghijklmnopqrstuvwxyz1234567890'
+        let length='8'
+        for (let i = 0; i < length; i++) {
+          pass+=str[ Math.floor(Math.random()*str.length)];            
+        }
+        setValues({...values,password:pass});
+        setAlert(true)
+}
+
+const confirm = () =>{
+    setAlert(false)
+    axios.post('http://localhost:3000/sendteacherinfo',values)
+                 .then(()=>console.log('done'))
+                 .catch(err=>console.log("new Teacher not added ! "+err))
+    setTimeout(()=>{              
+     setValues({
+        role: '',
+        firstName: '',
+        lastName: '',
+        fatherName: '',
+        motherName: '',
+        email: '',
+        gender: '',
+        dob: '',
+        doj: '',
+        phone: '',
+        status: '',
+        state: '',
+        city: '',
+        address: '',
+        qualification: '',
+        experience: '',        
+                })
+        },2000)
+   
+}
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -44,31 +84,7 @@ function AddNewStaff({ data }) {
                 setErr('Please select city !');
                 setTimeout(() => { setErr('') }, 3000)
             } else {
-                axios.post('http://localhost:3000/sendteacherinfo', values)
-                    .then(setAlert(true))
-                    .catch((err) => console.log(err))
-
-                setTimeout(() => {
-                    setAlert(false)
-                    setValues({
-                        role: '',
-                        firstName: '',
-                        lastName: '',
-                        fatherName: '',
-                        motherName: '',
-                        email: '',
-                        gender: '',
-                        dob: '',
-                        doj: '',
-                        phone: '',
-                        status: '',
-                        state: '',
-                        city: '',
-                        address: '',
-                        qualification: '',
-                        experience: '',
-                    })
-                }, 3000)
+                createPassword();
             }
         }
     }
@@ -140,7 +156,7 @@ function AddNewStaff({ data }) {
                                     <option value={''}>select</option>
                                     <option value={'Admin'}>Admin</option>
                                     <option value={'Teacher'}>Teacher</option>
-                                    <option value={'Librarian'}>Librarian</option>
+                                    <option value={'Accountant'}>Accountant</option>
                                     <option value={'Receptionist'}>Receptionist</option>
 
                                 </select>
@@ -237,6 +253,7 @@ function AddNewStaff({ data }) {
 
                                 </select>
                             </div>
+                           
 
                             <div className="col-md-3">
                                 <label >Photo</label>
@@ -312,8 +329,13 @@ function AddNewStaff({ data }) {
                                 <label htmlFor="inputEmail4" className="form-label">To Upload Multiple Document Compress It In A Single File Then Upload it.</label>
                                 <input type="file" className="form-control" id="inputEmail4" />
                             </div>
-                            {alert &&
-                                <Alert msg={'New member added successfully !'} type={'success'} />
+                            {   alert &&
+                                <div className='text-center'>
+                                <Alert msg={` Your Login Password is ${values.password}. Please confirm if You are added.`} type={'success'} />
+                                <button className='btn btn-primary btn-sm mt-0' style={{width:'100px'}}
+                                onClick={confirm}
+                                >Confirm</button>
+                                </div>
                             }
                             {editAlert &&
                                 <Alert msg={'Teacher Updated successfully !'} type={'success'} />

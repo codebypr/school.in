@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { CitySelect, StateSelect } from "react-country-state-city";
 import "react-country-state-city/dist/react-country-state-city.css";
-import { addNewStudent, editStudentDetails } from '../../../store/StudentDataSlice';
 import Alert from '../../Alert';
+import axios from 'axios';
 
 
 
 function StudentAdmission({ data }) {
     const [alert, setAlert] = useState(false);
-    const [password, setPassword] = useState('');
     const [editAlert, setEditAlert] = useState(false);
     const [btnView, setBtnView] = useState(true);
     const [err, setErr] = useState('');
@@ -37,9 +35,10 @@ function StudentAdmission({ data }) {
         motherName: '',
         motherPhone: '',
         motherOcc: '',
+        password: '',
     });
 
-    const dispatch = useDispatch();
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -53,20 +52,22 @@ function StudentAdmission({ data }) {
                 setErr('Please select city !');
                 setTimeout(() => { setErr('') }, 3000)
             } else {
-                createPassword()
-                setAlert(true)
-                dispatch(addNewStudent(values))
+                
+                createPassword();
+                
             }
         }
     }
+
     const createPassword=()=>{
         let pass=''
-        let str='abcdefghijklmnopqrstuvwxyz1234567890@#$%&'
+        let str='abcdefghijklmnopqrstuvwxyz1234567890'
         let length='8'
         for (let i = 0; i < length; i++) {
           pass+=str[ Math.floor(Math.random()*str.length)];            
         }
-        setPassword(pass);
+        setValues({...values,password:pass});
+        setAlert(true)
 }
 
 
@@ -82,42 +83,50 @@ function StudentAdmission({ data }) {
                 setErr('Please select city !');
                 setTimeout(() => { setErr('') }, 3000)
             } else {
-                 setEditAlert(true)
+                               
+                axios.put('http://localhost:3000/editstudentinfo/'+data.id,values)
+                .then(()=>setEditAlert(true))
+                .catch(err=>console.log(" student not edit ! "+err))
                 setTimeout(()=>{
                     setEditAlert(false)
                     location.reload()
                 },3000)
-                dispatch(editStudentDetails(values, data.id))
             }
         }
     }
 
 const confirm = () =>{
     setAlert(false)
-    setValues({
-        firstName: '',
-        lastName: '',
-        roll: '',
-        class: '',
-        section: '',
-        gender: '',
-        dob: '',
-        email: '',
-        phone: '',
-        religion: '',
-        category: '',
-        caste: '',
-        admissionDate: '',
-        state: '',
-        city: '',
-        address: '',
-        fatherName: '',
-        fatherPhone: '',
-        fatherOcc: '',
-        motherName: '',
-        motherPhone: '',
-        motherOcc: '',
-    })
+    axios.post('http://localhost:3000/sendstudentinfo',values)
+                 .then(()=>console.log('done'))
+                 .catch(err=>console.log("new student not added ! "+err))
+    setTimeout(()=>{              
+     setValues({
+                        firstName: '',
+                        lastName: '',
+                        roll: '',
+                        class: '',
+                        section: '',
+                        gender: '',
+                        dob: '',
+                        email: '',
+                        phone: '',
+                        religion: '',
+                        category: '',
+                        caste: '',
+                        admissionDate: '',
+                        state: '',
+                        city: '',
+                        address: '',
+                        fatherName: '',
+                        fatherPhone: '',
+                        fatherOcc: '',
+                        motherName: '',
+                        motherPhone: '',
+                        motherOcc: '',
+                })
+        },2000)
+   
 }
 
     useEffect(() => {
@@ -406,7 +415,7 @@ const confirm = () =>{
                             </div>
                             {   alert &&
                                 <div className='text-center'>
-                                <Alert msg={`New student added successfully. Your Password is ${password}`} type={'success'} />
+                                <Alert msg={` Your Login Password is ${values.password}. Please confirm if You are added.`} type={'success'} />
                                 <button className='btn btn-primary btn-sm mt-0' style={{width:'100px'}}
                                 onClick={confirm}
                                 >Confirm</button>

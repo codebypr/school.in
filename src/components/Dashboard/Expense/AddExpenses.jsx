@@ -1,12 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Alert from '../../Alert';
-import { useDispatch } from 'react-redux';
-import { setState } from '../../../store/UpdateStateSlice';
+
 
 function AddExpenses() {
-    const dispatch=useDispatch();
     const [success, setSuccess] = useState(false);
+    const [teacherData, setTeacherData] = useState([]);
     const [values, setValues] = useState({
         type: '',
         name: '',
@@ -22,7 +21,7 @@ function AddExpenses() {
             .then(()=> {
                 setSuccess(true);
                 setTimeout(() => {
-                    dispatch(setState())
+                  
                     setSuccess(false)
                     setValues({
                         type: '',
@@ -37,6 +36,12 @@ function AddExpenses() {
             .catch(err => console.log(err))
 
     }
+    useEffect(() => {
+        ; (async () => {
+            const result = await axios.get('http://localhost:3000/readteacherinfo')
+            setTeacherData(result.data);
+        })()
+    }, [ teacherData])
     return (
         <>
        
@@ -66,11 +71,19 @@ function AddExpenses() {
                             </div>
 
                             <div >
-                                <label >Name</label>
-                                <input type="text" className="form-control ps-2 p-0"
-                                    value={values.name}
-                                    onChange={(e) => setValues({ ...values, name: e.target.value })}
-                                    required />
+                            <label >Name</label>
+                        <select className="form-select ps-2 p-0"
+                            value={values.name}
+                            onChange={(e) => setValues({ ...values, name: e.target.value })}
+                            required
+                        >       <option value={''}>select</option>
+                            {
+                                teacherData.map((tec,i) => (
+                                    <option value={tec.firstName} key={i}>{tec.firstName}</option>
+                                ))
+                            }
+
+                        </select>
                             </div>
                             <div >
                                 <label >Invoice Number</label>

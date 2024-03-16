@@ -17,7 +17,7 @@ function ViewExpenses() {
             const res = await axios.get('http://localhost:3000/readexpense')
             setRealData(res.data)
             setUpdatedData(res.data)
-            console.log(res.data);
+           
         })()  
     },[stateChange])
 

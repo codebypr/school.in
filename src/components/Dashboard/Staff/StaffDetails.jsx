@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { FaEye } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { TbArrowBackUp } from "react-icons/tb";
-import { useSelector } from 'react-redux';
 import DataTable from 'react-data-table-component';
 import axios from 'axios';
 import ViewTeacher from './ViewTeacher';
@@ -14,14 +13,14 @@ import AddNewStaff from './AddNewStaff';
 
 
 function StaffDetails() {
-    const studentinfo = useSelector(state => state.stdReducer.studentData)
+    
     const [search, setSearch] = useState('')
     const [pannel,setPannel]=useState('');
     const [row,setRow]=useState({});
     const [values,setValues]=useState([]);
     const [realValues,setRealValues]=useState([]);
 
-    const [studentData, setStudentData] = useState([])
+  
     
     useEffect(() => {
         ; (async () => {

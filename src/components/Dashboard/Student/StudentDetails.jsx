@@ -5,7 +5,6 @@ import { FaEye } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { TbArrowBackUp } from "react-icons/tb";
 import { IoReceipt } from "react-icons/io5";
-import { useSelector } from 'react-redux';
 import DataTable from 'react-data-table-component';
 import StudentViewSection from './StudentViewSection';
 import StudentFeesCollect from './StudentFeesCollect';

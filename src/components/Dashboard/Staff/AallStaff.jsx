@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Staffcard from './Staffcard'
 import axios from 'axios';
-import ViewTeacher from './ViewTeacher';
+
 
 function AallStaff() {
 
   const [values, setValues] = useState([]);
-  const [viewTeacher, setViewTeacher] = useState(false);
-  const [data, setData] = useState({});
   useEffect(() => {
     ; (async () => {
       const result = await axios.get('http://localhost:3000/readteacherinfo')

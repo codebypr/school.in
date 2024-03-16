@@ -41,7 +41,7 @@ function AddPost() {
     }else{
       setErr(false)
     axios.post('http://localhost:3000/sendnotice',values)
-    .then(res=>setAlert(true))
+    .then(()=>setAlert(true))
     .catch(err=>console.log(err))
    
     setTimeout(() => {

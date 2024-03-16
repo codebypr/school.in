@@ -4,7 +4,7 @@ import { FaSave } from "react-icons/fa";
 import Alert from '../../Alert';
 import axios from 'axios';
 
-function StudentAttendance() {
+function StudentAttendance({userType,userId}) {
     const [stdInfo,setStdInfo] = useState([])
     const [studentData, setStudentData] = useState([]);
     const [search, setSearch] = useState('');
@@ -56,7 +56,7 @@ function StudentAttendance() {
                     attState.date = date.value;
                     attState.att = input.value
                     axios.post('http://localhost:3000/sendstdattendance',attState)
-                    .then(res=>setAlert(true))
+                    .then(()=>setAlert(true))
                     .catch(err=>console.log(" Attendence not added ! "+err))
                    
                     setTimeout(()=>{
@@ -67,12 +67,21 @@ function StudentAttendance() {
         })
     }
 
+    useEffect(()=>{
+        ;(async()=>{
+            const result = await axios.get('http://localhost:3000/readincharge/'+userId)
+            setSearch((result.data[0]).class)
+
+        })()
+
+    },[])
     useEffect(() => {
         setStudentData(stdInfo);
         const result = stdInfo.filter((student) => (
             student.class.toLowerCase().match(search.toLowerCase())
         ))
         setStudentData(result)
+        
     }, [search])
     return (
         <>
@@ -80,7 +89,10 @@ function StudentAttendance() {
             <form onSubmit={saveAtt}>
                 <div className="container first mb-5 row">
                     <div className=' bg-secondary-subtle p-2 px-4 mb-2' ><b>Student Attendance</b></div>
-                    <div className='col-4'>
+                   {
+                    userType=='Admin' &&
+                    (
+                        <div className='col-4'>
                         <label > Class </label>
                         <select className="form-select ps-2 p-0"
                             onChange={(e) => setSearch(e.target.value)}
@@ -102,15 +114,9 @@ function StudentAttendance() {
                             <option value={'12th'}>12th</option>
                         </select>
                     </div>
-                    <div className='col-4'>
-                        <label > Section </label>
-                        <select className="form-select ps-2 p-0" >
-                            <option value={''}>select</option>
-                            <option value={'A'}>A</option>
-                            <option value={'B'}>B</option>
-                            <option value={'C'}>C</option>
-                        </select>
-                    </div>
+                    )
+                   }
+                    
                     <div className='col-4'>
 
                         <label >Attendance Date</label>
